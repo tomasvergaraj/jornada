@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #f6f3ec;
+  --color-card: #ffffff;
+  --color-ink: #1c1b17;
+  --color-muted: #6b665a;
+  --color-faint: #928c7d;
+  --color-line: #e4decf;
+  --color-line2: #efeadf;
+  --color-teal: #125e58;
+  --color-teal-dk: #0c413d;
+  --color-teal-sf: #e3eeec;
+  --color-amber: #c0741c;
+  --color-amber-sf: #f6e9d5;
+  --color-indigo: #46467f;
+  --color-indigo-sf: #e7e6f2;
+  --color-good: #1f6b3a;
+  --color-warn: #9a5b12;
+  --color-bad: #9a2a2a;
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --radius-card: 12px;
+}
+
+@layer base {
+  html { -webkit-font-smoothing: antialiased; }
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+  }
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer components {
+  .card { @apply bg-card border border-line rounded-xl; box-shadow: 0 1px 2px rgba(28,27,23,.04), 0 10px 34px rgba(28,27,23,.05); }
+  .btn { @apply inline-flex items-center gap-2 rounded-lg border border-line bg-card px-4 py-2 text-sm font-medium transition-colors; }
+  .btn:hover { @apply bg-paper; }
+  .btn-primary { @apply bg-teal text-white border-teal; }
+  .btn-primary:hover { background: var(--color-teal-dk); }
+  .btn-primary:disabled { @apply opacity-50; }
+  .btn-ghost { @apply border-transparent bg-transparent text-teal-dk; }
+  .inp { @apply w-full rounded-lg border border-line bg-card px-3 py-2 text-sm outline-none; }
+  .inp:focus { border-color: var(--color-teal); box-shadow: 0 0 0 3px var(--color-teal-sf); }
+  .kicker { @apply text-xs font-semibold uppercase tracking-widest text-teal; }
+}

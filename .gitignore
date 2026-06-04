@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+
+# Datos locales (la base se crea sola; las plantillas base sí se versionan)
+backend/data/*.db
+
+# Node / Next
+node_modules/
+.next/
+out/
+
+# Entorno
+.env
+.env.local
+
+# Sistema
+.DS_Store
+Thumbs.db

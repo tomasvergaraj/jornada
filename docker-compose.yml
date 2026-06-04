@@ -1,0 +1,31 @@
+services:
+  backend:
+    build: ./backend
+    container_name: jornada-backend
+    environment:
+      # Orígenes permitidos (el frontend). Ajustar al desplegar en la VM.
+      CORS_ORIGINS: "http://localhost:3000,http://127.0.0.1:3000"
+      # La base SQLite vive en el volumen montado en /app/data (persistente).
+    volumes:
+      - jornada-data:/app/data
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        # Vacío por defecto: el navegador resuelve el backend en el mismo host
+        # que sirve la página (puerto 8000). Define un valor solo si usas un
+        # dominio fijo o un proxy. Ajustar al desplegar.
+        NEXT_PUBLIC_API_URL: "${NEXT_PUBLIC_API_URL:-}"
+    container_name: jornada-frontend
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+
+volumes:
+  jornada-data:
