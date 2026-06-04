@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/logo.svg" alt="Jornada" width="110" height="110" />
+</p>
+
 # Jornada
 
 **Horas extraordinarias, en orden.**
