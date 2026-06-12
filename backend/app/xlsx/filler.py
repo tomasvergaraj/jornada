@@ -148,11 +148,13 @@ def fill(form_key: str, template_path: str, jornadas: list[dict], mes: int, anio
         if j.get("fest_min", 0) > 0:
             c = ws[f"G{rr}"]; c.value = _frac(j["fest_min"]); c.number_format = "[h]:mm"; tot_f += j["fest_min"]
 
-    # totales (fórmula SUM; Excel/LibreOffice recalculan al abrir)
-    ws[cfg["total_diurna"]] = f"=SUM({cfg['rango_diurna']})"
-    ws[cfg["total_diurna"]].number_format = "[h]:mm"
-    ws[cfg["total_fest"]] = f"=SUM({cfg['rango_fest']})"
-    ws[cfg["total_fest"]].number_format = "[h]:mm"
+    # totales: se escriben como valor literal (suma ya calculada en fracción de
+    # día), no como fórmula SUM. openpyxl guarda la fórmula sin valor en caché y
+    # varios visores muestran la celda en blanco hasta recalcular —el mismo
+    # motivo por el que la columna B usa literales. Con el literal el total
+    # siempre aparece, sin depender del recálculo.
+    ct = ws[cfg["total_diurna"]]; ct.value = _frac(tot_d); ct.number_format = "[h]:mm"
+    cf = ws[cfg["total_fest"]]; cf.value = _frac(tot_f); cf.number_format = "[h]:mm"
 
     buf = io.BytesIO()
     wb.save(buf)
